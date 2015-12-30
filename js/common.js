@@ -26,7 +26,7 @@ $(function(){
 			var urlArr = location.pathname.split('/');
 			var target = urlArr[2].split(".");
 			$('nav li').each(function(index) {
-				if(target[0] == $(this).children("a").data("url")){
+				if(target[0].indexOf($(this).children("a").data("url"))	!== -1){
 					$("html").children("a").text($(this).data("url"));
 					$(this).children("a").addClass("sel");
 				}
