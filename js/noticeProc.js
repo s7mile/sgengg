@@ -46,11 +46,11 @@ $(function(){
 				type:'GET',
 				data:{pageNumber: nowNum},
 				success:function(result){
-					// console.log(result);
+					console.log(result);
 					paging.init();
 					for(var i=0; i<result.length; i++){	
 						var date = result[i].signup_date.split("T");
-						$("ul.notice").append("<li><a href='#'><h3>" + result[i].title + "</h3><p>" + result[i].contents + "</p><p>" + date[0] + "</p></a><a href='javascript:;' class='deleteNotice' data-no='"+result[i].schedule_idx+"'>X</a></li>");
+						$("ul.notice").append("<li><a href='notice_view.html?no="+result[i].schedule_idx+"'><h3>" + result[i].title + "</h3><p>" + result[i].contents + "</p><p>" + date[0] + "</p></a><a href='javascript:;' class='deleteNotice' data-no='"+result[i].schedule_idx+"'>X</a></li>");
 					}
 
 					//deleteNotice
