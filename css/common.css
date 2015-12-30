@@ -96,3 +96,16 @@ article h3 {
 	padding: 5px 0;
 	font-size: 16px
 }
+
+/*윤호*/
+.css-max-wdith{
+	max-width: 920px;
+	min-width: 850px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.cover{
+	width: 100%;
+	border-bottom: 1px solid #eee;
+	background-color: white;
+}

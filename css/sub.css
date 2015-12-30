@@ -175,13 +175,13 @@ section.place > div {
 
 .rightWrap .tab, 
 .counter {
+	margin: 0 auto;
+	min-width: 850px;
 	float: none;
 	height: 60px;
-	margin: 0;
 	padding: 0 50px;
 	background: #fff;
 	border: 0;
-	border-bottom: 1px solid #eee;
 	font-weight: bold;
 	color: #666;
 	line-height: 60px
