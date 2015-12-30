@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>공감 관리자모드</title>
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/sub.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/noticeProc.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script type-"text/javascript">
+	$(function(){
+		$("footer").load("footer.html");
+		$("#startDate, #endDate, #deadline").datepicker({dateFormat: 'yy-mm-dd'});	
+	});
+	</script>
+</head>
+<body>
+	<header>
+		<h1><img src="../image/logo.png" alt="Be Place"></h1>
+		<nav>
+			<ul>
+				<li>
+					<a href="/page/place.html" data-url="place">PLACE</a>
+				</li>
+				<li>
+					<a href="/page/members.html" data-url="members">MEMBERS</a>
+				</li>
+				<li>
+					<a href="/page/schedule.html" data-url="schedule">SCHEDULE</a>
+				</li>
+				<li>
+					<a href="/page/notice.html" data-url="notice">NOTICE</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<section class="notice">
+		<article>
+			<h2>공지사항</h2>
+			<div class="searchWrap">
+				<input type="text" name="key" id="key" placeholder="게시물을 검색하세요">
+				<input type="button" id="searchBtn" value="검색">
+			</div>
+			<div class="view">
+				<h3>제목</h3>
+				<p class="date">2015-01-22</p>
+				<p class="cont">내용</p>
+			</div>
+		</article>
+	</section>
+	<footer><!-- include footer.html --></footer>
+</body>
+</html>
