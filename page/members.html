@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>공감 관리자모드</title>
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/sub.css">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/proc.js"></script>
+	<script type-"text/javascript">
+		$(function(){
+			$("footer").load("footer.html");
+		});
+	</script>
+	<script type="text/javascript" src="../js/circleGraph.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+</head>
+<body>
+	<header>
+		<h1><img src="../image/logo.png" alt="Be Place"></h1>
+		<nav>
+			<ul>
+				<li>
+					<a href="/page/place.html" data-url="place">PLACE</a>
+				</li>
+				<li>
+					<a href="/page/members.html" data-url="members">MEMBERS</a>
+				</li>
+				<li>
+					<a href="/page/schedule.html" data-url="schedule">SCHEDULE</a>
+				</li>
+				<li>
+					<a href="/page/notice.html" data-url="notice">NOTICE</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<section class="members">
+		<div class="leftWrap">
+			<a href="javascript:;" class="tab down">Sgen 5기</a>
+			<div>
+				<ul class="count">
+					<li>UX UI<span>24명</span></li>
+					<li>ICT 개발<span>24명</span></li>
+					<li>총원<span>48명</span></li>
+				</ul>
+				<div class="searchWrap member">
+					<strong>멤버</strong>
+					<input type="text" name="key" id="key" placeholder="이름을 검색하세요">
+					<input type="button" id="searchBtn" value="검색">
+					<a href="javascript:;" class="memberAddBtn">추가</a>
+				</div>
+				<ul>
+					<li>
+						<ul>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="rightWrap">
+			<article class="tab">
+				<ul>
+					<li class="sel"><a href="javascript:;">2015년 상반기</a></li>
+					<li><a href="javascript:;">2015년 하반기</a></li>
+				</ul>
+			</article>
+			<article class="member">
+				<h2>2015년 상반기 팀관리</h2>
+				<ul>
+					<li>
+						<h3>1팀 프로젝트명</h3>
+						<ul>
+							<li>PM : 홍길동</li>
+							<li>Member : 길동, 길동, 길동, 길동</li>
+						</ul>
+
+						<ul class="point">
+							<li>
+								<strong>기획심사</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>중간발표</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>최종심사</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>총점</strong>
+								<p>94점</p>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<h3>2팀 프로젝트명</h3>
+						<ul>
+							<li>PM : 홍길동</li>
+							<li>Member : 길동, 길동, 길동, 길동</li>
+						</ul>
+
+						<ul class="point">
+							<li>
+								<strong>기획심사</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>중간발표</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>최종심사</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>총점</strong>
+								<p>94점</p>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<h3>3팀 프로젝트명</h3>
+						<ul>
+							<li>PM : 홍길동</li>
+							<li>Member : 길동, 길동, 길동, 길동</li>
+						</ul>
+
+						<ul class="point">
+							<li>
+								<strong>기획심사</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>중간발표</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>최종심사</strong>
+								<p>94점</p>
+							</li>
+							<li>
+								<strong>총점</strong>
+								<p>94점</p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</article>
+		</div>
+	</section>
+	<footer><!-- include footer.html --></footer>
+</body>
+</html>

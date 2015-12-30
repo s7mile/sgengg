@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>공감 관리자모드</title>
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/sub.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/noticeProc.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script type-"text/javascript">
+	$(function(){
+		$("footer").load("footer.html");
+		$("#startDate, #endDate, #deadline").datepicker({dateFormat: 'yy-mm-dd'});	
+	});
+	</script>
+</head>
+<body>
+	<header>
+		<h1><img src="../image/logo.png" alt="Be Place"></h1>
+		<nav>
+			<ul>
+				<li>
+					<a href="/page/place.html" data-url="place">PLACE</a>
+				</li>
+				<li>
+					<a href="/page/members.html" data-url="members">MEMBERS</a>
+				</li>
+				<li>
+					<a href="/page/schedule.html" data-url="schedule">SCHEDULE</a>
+				</li>
+				<li>
+					<a href="/page/notice.html" data-url="notice">NOTICE</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<section class="notice">
+		<article>
+			<h2>공지사항</h2>
+			<div class="searchWrap">
+				<input type="text" name="key" id="key" placeholder="게시물을 검색하세요">
+				<input type="button" id="searchBtn" value="검색">
+			</div>
+			<ul class="notice">
+			</ul>
+
+			<a href="javascript:;" class="writeBtn">글쓰기</a>
+
+			<div class="paging">
+				<ol>
+				</ol>
+			</div>
+		</article>
+		<article class="writeWrap">
+			<div class="bg"></div>
+			<div class="formWrap">
+				<dl class="left">
+					<dt><label for="subject">제목</label></dt>
+					<dd><input type="text" name="subject" id="subject"></dd>
+
+					<dt><label for="place">장소</label></dt>
+					<dd><input type="text" name="place" id="place"></dd>
+
+					<dt><label for="participant">참석자</label></dt>
+					<dd><input type="text" name="participant" id="participant"></dd>
+
+					<dt><label for="date">일시</label></dt>
+					<dd>
+						<input type="text" name="startDate" id="startDate">
+						<select name="startHour" id="startHour"></select>시
+						<select name="startMinute" id="startMinute"></select>분~
+						<input type="text" name="endDate" id="endDate">
+						<select name="endHour" id="endHour"></select>시
+						<select name="endMinute" id="endMinute"></select>분
+					</dd>
+
+					<dt><label for="content">내용</label></dt>
+					<dd><textarea name="content" id="content" cols="30" rows="10"></textarea></dd>
+				</dl>
+
+				<dl class="right">
+					<dt class="fl"><label for="voteSetting">투표설정</label></dt>
+					<dd class="tr">
+						<input type="hidden" name="voteSetting" id="voteSetting" value="0">
+						<button class="voteSetting" data-set="1">ON</button>
+						<button class="voteSetting sel" data-set="0">OFF</button>
+					</dd>
+
+					<dt><label for="voteSubject">투표제목</label></dt>
+					<dd><input type="text" name="voteSubject" id="voteSubject"></dd>
+
+					<dt><label for="voteSel">선택항목</label></dt>
+					<dd>
+						<input type="hidden" name="voteSel" id="voteSel" value="1">
+						<div class="voteSelList">
+							<div class="voteSel">
+								<span>참석</span>
+								<a href="javascript:;">X</a>
+							</div>
+							<div class="voteSel">
+								<span>불참석</span>
+								<a href="javascript:;">X</a>
+							</div>
+						</div>
+						<input type="text" name="voteAdd" id="voteAdd">
+						<button class="voteSelAdd">추가</button>
+					</dd>
+
+					<dt><label for="deadline">마감시간</label></dt>
+					<dd>
+						<input type="text" name="deadline" id="deadline">
+						<select name="deadHour" id="deadHour"></select>시
+						<select name="deadMinute" id="deadMinute"></select>분
+					</dd>
+				</dl>
+				<div>
+					<input type="button" value="등록" id="noticeRegit">
+					<input type="button" value="취소" class="close">
+				</div>
+			</div>
+			<button class="closeBtn">X</button>
+		</article>
+	</section>
+	<footer><!-- include footer.html --></footer>
+</body>
+</html>

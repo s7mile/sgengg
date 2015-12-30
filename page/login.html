@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>로그인 - 공감 관리자모드</title>
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/sub.css">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/proc.js"></script>
+	<script>
+		$(function(){
+			$("footer").load("footer.html");
+		});
+	</script>
+</head>
+<body>
+	<header class="login">
+		<p>관리자모드</p>
+		<h1><img src="../image/logo2.png" alt="Be Place"></h1>
+	</header>
+	<div class="loginWrap">
+		<h2>로그인</h2>
+		<p>
+			<input type="text" name="userId" id="userId" placeholder="관리자 ID" title="아이디를 입력하세요">
+		</p>
+		<p>
+			<input type="password" name="userPw" id="userPw" placeholder="비밀번호" title="비밀번호를 입력하세요">
+		</p>
+		<input type="button" id="loginBtn" value="로그인">
+	</div>
+	<footer></footer>
+</body>
+</html>
