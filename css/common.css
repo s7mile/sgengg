@@ -1,160 +1,125 @@
 @charset "utf-8";
 @import url(font.css);
 /* [S] reset */
-html, body {
-    height: 100%;
-}
-
-body {
-    overflow-x: hidden;
-}
-
+html, body {height: 100%;}
+body {overflow-x: hidden;}
 * {
-    margin: 0px;
-    padding: 0px;
+	margin: 0px;
+	padding: 0px;
 }
-
 img {
-    border: 0;
-    vertical-align: middle;
+	border: 0;
+	vertical-align: middle;
 }
-
-li {
-    list-style: none
-}
-
-a {
-    text-decoration: none
-}
-
+li {list-style: none}
+a {text-decoration: none}
 a, html, button, input, textarea {
-    color: #333;
-    font-family: 'Nanum Gothic';
-    font-size: 13px;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	color: #333;
+	font-family: 'Nanum Gothic';
+	font-size: 13px;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
-
-iframe {
-    border: 0;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-em {
-    font-style: normal;
-}
-
+iframe {border: 0;}
+a:hover {text-decoration: underline;}
+em {font-style: normal;}
 button, label, input[type="submit"], input[type="image"], input[type="button"] {
-    border: 0;
-    cursor: pointer
+	border: 0;
+	cursor: pointer
 }
-
 input[type="checkbox"],
-input[type="radio"] {
-    vertical-align: middle
-}
-
-.hidden {
-    display: none;
-}
-
-.fl {
-    float: left;
-}
-
-.tr {
-    text-align: right;
-}
+input[type="radio"] {vertical-align: middle}
+.hidden {display: none;}
+.fl {float: left;}
+.tr {text-align: right;}
 
 /* [E] reset */
 
 /* [S] header */
 header {
-    height: 65px;
-    background: #2095f3;
+	height: 65px;
+	background: #2095f3;
 }
 
 header h1 {
-    position: absolute;
-    top: 10px;
-    left: 45px;
+	position: absolute;
+	top: 10px;
+	left: 45px;
 }
 
 nav {
-    text-align: right; /*윤호 center - right*/
+	text-align: right; /*윤호 center - right*/
 }
 
 nav ul {
-    display: inline;
+	display: inline;
 }
 
 nav li {
-    display: inline-block;
+	display: inline-block;
 }
 
 nav a {
-    display: inline-block;
-    height: 65px;
-    padding: 0 70px;
-    font-size: 15px;
-    color: #0c4e82;
-    line-height: 65px;
+	display: inline-block;
+	height: 65px;
+	padding: 0 70px;
+	font-size: 15px;
+	color: #0c4e82;
+	line-height: 65px;
 }
 
 nav a.sel {
-    color: #fff;
+	color: #fff;
 }
 
 nav a:hover {
-    text-decoration: none;
-    color: #fff;
+	text-decoration: none;
+	color: #fff;
 }
 
 /* [E] header */
 
 /* [S] footer */
+footer {clear: both;}
 footer p {
-    color: #aaa;
-    text-align: center;
+	color: #aaa;
+	text-align: center;
 }
 
 /* [E] footer */
 
 article {
-    clear: both;
-    overflow: hidden;
-    margin: 20px;
+	clear: both;
+	overflow: hidden;
+	margin: 20px;
 }
 
 article > div {
-    padding: 40px;
-    background: #fff;
-    border: 1px solid #e5e5e5;
+	padding: 40px;
+	background: #fff;
+	border: 1px solid #e5e5e5;
 }
 
 article h3 {
-    margin-bottom: 10px;
-    color: #555;
-    padding: 5px 0;
-    font-size: 16px
+	margin-bottom: 10px;
+	color: #555;
+	padding: 5px 0;
+	font-size: 16px
 }
 
 /*윤호*/
 .css-max-wdith {
-    max-width: 920px;
-    min-width: 850px;
-    margin: 0 auto;
-    margin-top: 20px;
+	max-width: 920px;
+	min-width: 850px;
+	margin: 0 auto;
+	margin-top: 20px;
 }
 
 .cover {
-    width: 100%;
-    border-bottom: 1px solid #eee;
-    background-color: white;
+	width: 100%;
+	border-bottom: 1px solid #eee;
+	background-color: white;
 }
 
 header > h1 img {
-    margin-top: 7px;
+	margin-top: 7px;
 }

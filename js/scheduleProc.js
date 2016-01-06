@@ -1,6 +1,4 @@
-$(function(){
-	$('head').append('<script type="text/javascript" src="../js/addNotice.js"></script>');
-	
+$(function(){	
 	var calendar = new controller();
 	calendar.init();
 
