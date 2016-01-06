@@ -66,7 +66,7 @@
 			type:'GET',
 			data:{},
 			success:function(result){
-				console.log(result);
+				// console.log(result);
 				if(result != "noResult"){
 					var startDate = result[0][0].start_time.split("T"), 
 						start = startDate[1].split(".")[0].split(":"),
@@ -108,15 +108,24 @@
 		//멤버검색
 		$("#searchBtn").on("click", function(){
 			$.ajax({
-				url:'/searchMember',
+				url:'/searchPlaceMember',
 				type:'GET',
 				data:{text: $("#key").val()},
 				success:function(result){
 					console.log(result);
-					$(".leftWrap > ul ul").html("");
+					var img;
+
+					$(".memberList ul").html("");
 					for(var i=0; i<result.length; i++){
-						//멤버리스트
-						$(".leftWrap > ul").append('<li><strong>'+result[i].place_name+'</strong><ul></ul></li>');
+						$(".memberList > li").each(function(index) {
+							if($(this).find("strong").text() == result[i].place_name){
+								if(result[i].image)
+									img = result[i].image;
+								else
+									img = '/image/user.png';
+								$(this).find("ul").append('<li><a href="javascript:;"><span class="photo"><img src="'+img+'" alt=""></span><em>'+ result[i].name +'</em><p>'+ result[i].major +'</p></a></li>');
+							}
+						});
 					}
 				}
 			});
@@ -173,7 +182,7 @@
 				<ul>
 					<li class="mapColor">
 						<strong>전체인원</strong>
-						<p>10</p>
+						<p></p>
 					</li>
 				</ul>
 				<ul class="beaconList"></ul>
