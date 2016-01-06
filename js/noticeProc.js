@@ -49,10 +49,21 @@ $(function(){
 				data:{pageNumber: nowNum},
 				success:function(result){
 					console.log(result);
+					var html;
 					paging.init();
 					for(var i=0; i<result.length; i++){	
 						var date = result[i].signup_date.split("T");
-						$("ul.notice").append("<li><a href='notice_view.html?no="+result[i].schedule_idx+"' class='list'><h3>" + result[i].title + "</h3><p class='cont'>" + result[i].contents + "</p><p>" + date[0] + "</p></a><a href='javascript:;' class='deleteNotice' data-no='"+result[i].schedule_idx+"'>X</a></li>");
+						html = "<li>";
+						html += "<a href='notice_view.html?no="+result[i].schedule_idx+"' class='list'>";
+						html += "<h3>"+ result[i].title + "</h3>";
+						html += "<p class='cont'>" + result[i].contents + "</p>";
+						html += "<p>" + date[0] + "</p>";
+
+						html += "<span class='voteOn'>진행중</span>";
+						html += "</a>";
+						html += "<a href='javascript:;' class='deleteNotice' data-no='"+result[i].schedule_idx+"'>X</a>";
+						html += "</li>";
+						$("ul.notice").append(html);
 					}
 
 					//deleteNotice
