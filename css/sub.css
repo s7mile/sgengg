@@ -66,13 +66,11 @@ section.members,
 section.place {
 	clear: both;
 	overflow: hidden;
-	height: 100%;
 }
 section.members > div,
 section.place > div {
 	overflow: hidden;
 	background: #f5f5f5;
-	height: 100%;
 }
 .tabMenu {
 	width: 50%;
@@ -80,6 +78,7 @@ section.place > div {
 }
 
 .leftWrap {
+	position: relative;
 	float: left;
 	width: 330px;
 	background: #383838 !important;
@@ -92,6 +91,21 @@ section.place > div {
 	font-size: 18px;
 	font-weight: bold;
 }
+.radixSel {
+	display: none;
+	position: absolute;
+	top: 55px;
+	right: 1px;
+	width: 100px;
+	background: #fff;
+	z-index: 99
+}
+.radixSel a {
+	display: block;
+	padding: 10px;
+	font-size: 14px;
+}
+.radixSel a:hover {color: #fff;}
 .leftWrap .down {background: url("../image/btn_down.png") no-repeat 90% center #454545}
 .leftWrap .up {background: url("../image/btn_up.png") no-repeat 90% center #454545}
 .leftWrap .count {
@@ -110,13 +124,12 @@ section.place > div {
 	line-height: 70px;
 }
 .leftWrap > p span {float: right}
-.leftWrap li a {
+.memberList li a {
 	display: block;
+	height: 36px;
 	padding: 20px;
 	font-size: 14px;
 	color: #fff;
-	padding-left: 100px;
-	background: url("../image/user.png") no-repeat 30px center;
 }
 .leftWrap strong {
 	display: block;
@@ -160,6 +173,20 @@ section.place > div {
 	font-size: 18px;
 	text-align: left;
 }
+.leftWrap .photo {
+	float: left;
+	display: block;
+	overflow: hidden;
+	width: 47px;
+	height: 47px;
+	margin-top: -5px;
+	margin-right: 10px;
+	border-radius: 50%;
+}
+.leftWrap .photo img {
+	width: 100%;
+	height: 100%;
+}
 .memberAddBtn {
 	position: absolute;
 	right: 30px;
@@ -172,6 +199,31 @@ section.place > div {
 	text-decoration: none;
 }
 .leftWrap a p {color: #b2b7bb;}
+
+.memberInfo {
+	display: none;
+	width: 650px;
+	margin: 0 auto;
+}
+.memberInfo article {	
+	position: fixed;
+	top: 70px;
+	width: 650px;
+	background: #fff;
+	z-index: 99;
+}
+.memberInfo .bg {
+	opacity: .2;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	background: #000;
+}
+.perInfo {background: #f8f8f8;}
+
 
 .rightWrap .tab, 
 .counter {
@@ -219,16 +271,22 @@ section.place > div {
 	border-bottom: 3px solid #2095f3;
 	color: #2b6f8e;
 }
-.mapWrap > div {position: relative;}
-.mapWrap ul {
+.mapWrap > div {
+	position: relative;
 	clear: both;
-	overflow: hidden
+	overflow: hidden;
 }
+.mapWrap ul {float: left;}
+.mapWrap ul.out {float: right;}
+.mapWrap ul.out li {margin: 0;}
 .mapWrap h2 {
 	padding-left: 27px;
 	margin-bottom: 10px;
 	font-size: 17px;
 	background: url("../image/icon_home.png") no-repeat 0 center;
+}
+.mapWrap .beaconList {
+	width: 480px;
 }
 .mapWrap li {
 	float: left;
@@ -243,9 +301,6 @@ section.place > div {
 }
 .mapWrap span, 
 .mapColor {color: #2095f3;}
-.mapWrap li:last-child {
-	margin-left: 20px;
-}
 .mapWrap p {
 	position: relative;
 	width: 150px;
@@ -262,7 +317,7 @@ section.place > div {
 	font-size: 14px;
 	line-height: normal;
 }
-.mapWrap li:first-child p {
+.mapWrap ul:first-child p {
 	width: auto;
 	padding: 0 30px 0 10px;
 	font-size: 100px;
@@ -316,7 +371,7 @@ section.place > div {
 	font-weight: bold;
 }
 
-.scheduleWrap h4 {font-size: 18px;}
+.scheduleWrap h3 {font-size: 18px;}
 .scheduleWrap .time {
 	border-bottom: 1px solid #f4f4f4;
 	margin-bottom: 20px;
@@ -325,6 +380,7 @@ section.place > div {
 .scheduleWrap > div {
 	clear: both;
 	overflow: hidden;
+	margin-bottom: 100px;
 }
 .scheduleWrap h2 {
 	margin-bottom: 10px;
@@ -437,19 +493,35 @@ section.notice h2 {
 }
 ul.notice li {
 	position: relative;
-	padding: 20px;
 	margin-bottom: 10px;
 	background: #fff;
 	border: 1px solid #ededed;
 }
-ul.notice a {
+ul.notice a.list {
+	padding: 20px;
 	display: block;
 }
-.deleteNotice {
+ul.notice a.list:hover {
+	text-decoration: none;
+	color: #000 !important;
+	background: #fafafa;
+}
+ul.notice .cont {
+	overflow: hidden;
+	width: 900px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal
+}
+ul.notice a.deleteNotice {
+	display: none;
 	position: absolute;
 	top: 10px;
 	right: 10px;
+	padding: 3px;
+	color: #ff0000;
 }
+ul.notice li:hover .deleteNotice {display: block;}
 section.notice .searchWrap {
 	position: absolute;
 	right: 0;
@@ -467,7 +539,8 @@ section.notice .searchWrap #searchBtn {
 	right: 20px;
 }
 
-section.notice .writeBtn {
+.emailBtn, 
+.writeBtn {
 	display: block;
 	width: 130px;
 	height: 40px;
@@ -479,6 +552,7 @@ section.notice .writeBtn {
 	font-size: 16px;
 	text-align: center;
 }
+.emailBtn:hover, 
 .writeBtn:hover {text-decoration: none}
 .paging {
 	padding: 0;
@@ -496,11 +570,14 @@ section.notice .writeBtn {
 	font-weight: bold;
 }
 
+.writeDiv {
+	width: 1000px;
+	margin: 0 auto;
+}
 .writeWrap {
 	display: none;
-	position: absolute;
-	left: 0;
-	top: 250px;
+	position: fixed;
+	top: 70px;
 	padding-top: 60px;
 }
 .writeWrap textarea, 
@@ -591,7 +668,7 @@ section.notice .writeBtn {
 	text-align: center;
 }
 .writeWrap .bg {
-	opacity: .2;
+	opacity: .3;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -606,17 +683,75 @@ section.notice .writeBtn {
 	position: relative;
 	z-index: 99;
 }
-#startDate, #endDate, #deadline {width: 70px;}
-.closeBtn {
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 99;
-	border: 0;
-	background: none !important;
-	font-size: 50px;
-	color: #454545 !important;
+#startDate, #endDate, #deadDate {width: 70px;}
+
+.notice.view {
+	color: #555;
+	font-size: 14px;
 }
+.notice.view table {
+	width: 100%;
+}
+.notice.view h3 {
+	margin: 0;
+	padding: 0;
+}
+.notice.view thead th {
+	padding: 10px 0;
+	background: #fafafa;
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+	font-weight: normal;
+}
+.notice.view thead th:first-child {width: 70%;}
+.notice.view tbody td {
+	padding: 10px 0;
+	background: #fff;
+	text-align: center;
+}
+.notice.view h3 {
+	padding: 0 30px;
+	text-align: left;
+}
+.notice.view .cont {
+	padding: 30px;
+	border: 0;
+	border-top: 1px solid #ebebeb;
+	background: #fff;
+} 
+.notice.view .cont > div {padding-left: 30px;}
+.notice.view .cont strong {
+	display: block;
+	margin: 10px 0;
+	font-size: 16px;
+}
+.notice.view .cont pre {
+	margin-top: 30px;
+	line-height: 160%
+}
+.notice.view .cont li {
+	width: 200px;
+	padding: 10px 20px;
+	margin-bottom: 10px;
+	background: #ededed;
+}
+
+.notice.view .cont > p {margin-bottom: 5px;}
+.notice.view .cont em {
+	float: left;
+	display: block;
+	width: 100px;
+	font-weight: bold;
+	margin-right: 20px;
+}
+.notice.view h4 {
+	margin-top: 100px;
+	padding: 10px 0 10px 30px;
+	border-bottom: 1px solid #efefef;
+	background: url("../image/icon_check_gray.png") no-repeat 0 center;
+	font-size: 20px;
+}
+.notice.view .writeBtn {background: #5d5d5d;}
 /* notice */
 
 /* member */
@@ -645,3 +780,155 @@ section.notice .writeBtn {
 }
 .member .point p {padding-top: 20px}
 /* member */
+
+/* schedule */
+section.schedule {
+	position: relative;
+	height: 100%;
+}
+section.schedule:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+.leftWrap2 {
+	float: left;
+	width: 100%;
+	margin-right: -330px;
+	background: #f5f5f5;
+}
+.leftWrap2 > div {margin-right: 330px}
+.rightWrap2 {
+	float: right;
+	width: 250px;
+	height: 100%;
+	padding: 0 40px;
+	background: #454545 !important;
+	color: #fff;
+}
+.calHeader {
+	padding: 20px 0;
+	background: #fff;
+	border-bottom: 1px solid #eee;
+	font-size: 15px;
+}
+.calHeader button {
+	width: 11px;
+	height: 20px;
+	text-indent: -999em;
+}
+.calHeader > div {float: left;}
+.calHeader > p {
+	margin-right: 172px;
+	text-align: center
+}
+.calHeader > div > * {margin: 0 10px;}
+#btnPrev {background: url("../image/btn_prev.png")}
+#btnNext {background: url("../image/btn_next.png")}
+#currentDate {font-weight: bold;}
+#calendar table {
+	width: 100%;
+	text-align: center;
+}
+#calendar thead tr > * {
+	padding: 15px;
+	background: #fff;
+	border-bottom: 1px solid #e1e1e1;
+}
+#calendar tbody tr > * {
+	height: 60px;
+	padding: 10px;
+	background: #fff;
+	border-right: 1px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
+	vertical-align: top;
+	text-align: left;
+}
+#calendar tbody tr > *:first-child {background: #d7d7d7;}
+#calendar tbody tr > *:last-child {
+	border-right: 0;
+	background: #d7d7d7;
+}
+#calendar td.today {color: #2095f3;}
+.notThisMonth {color: #aaa;}
+.leftWrap2 article {
+	width: 920px;
+	padding-right: 330px;
+	margin: 0 auto;
+}
+.leftWrap2 article li:first-child .date {color: #2095f3;}
+.leftWrap2 article h2 {margin: 60px 0 30px}
+.leftWrap2 article li {
+	clear: both;
+	overflow: hidden;
+	padding: 10px 5px;
+	border-bottom: 1px solid #ececec;
+}
+.leftWrap2 article p.date {
+	float: left;
+	width: 120px;
+}
+.leftWrap2 article p.cont span {
+	float: right;
+	width: 85px;
+	text-align: right;
+}
+article.ago {margin-bottom: 100px;}
+.leftWrap2 article.ago p {color: #8e8e8e !important;}
+
+
+
+.rightWrap2 .searchWrap {
+	padding: 20px 0 0;
+	margin-bottom: 20px;
+}
+.rightWrap2 .searchWrap input[type="text"] {width: 185px;}
+.rightWrap2 #searchBtn {
+	bottom: 4px;
+	right: 20px;
+}
+.rightWrap2 h2 {
+	padding: 10px 0 10px 30px;
+	margin-bottom: 10px;
+	background: url("../image/icon_sche2.png") 0 center no-repeat;
+	border-bottom: 1px solid #696969;
+}
+.rightWrap2 h2.vote {
+	margin-top: 50px;
+	background: url("../image/icon_check.png") 0 center no-repeat;
+}
+.rightWrap2 ul.vote li {
+	clear: both;
+	overflow: hidden;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #fff;
+}
+.rightWrap2 ul.vote li span {
+	float: left;
+	display: block;
+	width: 10px;
+	height: 10px;
+	margin: 5px 10px 0 0 ;
+	border-radius: 50%;
+	background: #2095f3;
+}
+.rightWrap2 ul.vote li:nth-child(1) span {background: #2095f3;}
+.rightWrap2 ul.vote li:nth-child(2) span {background: #ff6246;}
+.rightWrap2 ul.vote li:nth-child(3) span {background: #d1d1d1;}
+.rightWrap2 ul.vote li:nth-child(4) span {background: #929292;}
+.rightWrap2 ul.vote li em {float: right;}
+.rightWrap2 .pie::before {background: #454545;}
+p.dateHeader {
+	font-size: 15px;
+	margin-bottom: 10px;
+}
+p.noSche {
+	padding: 70px 0;
+	margin-top: 30px;
+	text-align: center;
+	border: 2px dashed #969696;
+	border-radius: 5px;
+	color: #969696;
+}
+.scheWrap .writeBtn {width: auto;}

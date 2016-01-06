@@ -1,250 +1,249 @@
 ﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>공감 관리자모드</title>
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/sub.css">
-    <script type="text/javascript" src="../js/jquery.js"></script>
-    <script type="text/javascript" src="../js/proc.js"></script>
-    <script type-
-    "text/javascript">
-    $(function(){
-    $("footer").load("footer.html");
+	<meta charset="UTF-8">
+	<title>공감 관리자모드</title>
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/sub.css">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type-"text/javascript">
+	$(function(){
+		$("footer").load("footer.html");
+		$(".leftWrap").css("height", $(".rightWrap").height());
 
-    //사이드바 멤버
-    $.ajax({
-    url:'/placeInfo',
-    type:'GET',
-    data:{},
-    success:function(result){
-    console.log(result);
-    // for(var i=0; i
-    <result.length
-    ; i++){
-    // var date = result[i].signup_date.split("T");
-    // $("ul.notice").append("
-    <li>
-        <h3>" + result[i].title + " < / h3 > < p > " + result[i].contents + " < / p > < p > " + date[0] + " < / p > < / li > ");
-        // }
-        }
-        })
-        ;
+		//멤버리스트출력, 비콘관련
+		$.ajax({	
+			url:'/countBeacon',
+			type:'GET',
+			data:{},
+			success:function(result){
+				// console.log(	result);
+				var num,
+					j = 1,
+					total = result.length,
+					totalCount=0,
+					placeName=[];
+				for(num=0; num<result.length; num++){
+					//멤버리스트
+					$(".leftWrap > ul").append('<li><strong>'+result[num].place_name+'</strong><ul></ul></li>');
+					placeName[num] = result[num].place_name;
+					//사이드바 멤버
+					$.ajax({	
+						url:'/placeInfoWeb',
+						type:'GET',
+						data:{num: result[num].p_id},
+						success:function(result){
+							// console.log(result);
+							var count = result.length;
+							var img='';
+							for(var i=0; i<count; i++){	
+								if(result[i].image)
+									img = result[i].image;
+								else
+									img = '/image/user.png';
+								$(".leftWrap > ul > li:nth-child("+j+") ul").append('<li><a href="javascript:;"><span class="photo"><img src="'+img+'" alt=""></span><em>'+ result[i].name +'</em><p>'+ result[i].major +'</p></a></li>');
+							}
 
-        //오늘의 일정
-        $.ajax({
-            url: '/todayPlanWeb',
-            type: 'GET',
-            data: {},
-            success: function (result) {
-                console.log(result);
-                $(".scheduleWrap h4").text(result[0].title);
-                $(".scheduleCont").text(result[0].contents);
-            }
-        });
-        })
-        ;
-            </script>
-            <script type="text/javascript" src="../js/circleGraph.js"></script>
-            <script type="text/javascript" src="../js/common.js"></script>
-            </head>
+							//map
+							if(j < total){
+								$(".beaconList").append('<li><strong>'+placeName[j-1]+'</strong><p>'+count+'<!--<span>'+count+'/20</span>--></p></li>');
+								totalCount=parseInt(totalCount) + parseInt(count);
+							}
+
+							j++;
+							$(".nowTotal").text(totalCount+"명");
+							$(".mapColor p").text(totalCount);
+						}
+					});
+				}
+			}
+		});
+		
+		
+		//오늘의 일정
+		$.ajax({	
+			url:'/todayPlanWeb',
+			type:'GET',
+			data:{},
+			success:function(result){
+				// console.log(result);
+				var startDate = result[0][0].start_time.split("T"), 
+					start = startDate[1].split(".")[0].split(":"),
+					finDate = result[0][0].fin_time.split("T"),
+					fin = finDate[1].split(".")[0].split(":"),
+					startTime,
+					finTime;
+
+				if(start[0] > 12){
+					startTime = "오후 ";
+					start[0] -= 12;
+				} else startTime = "오전 ";
+
+				if(fin[0] > 12){
+					finTime = "오후 ";
+					fin[0] -= 12;
+				} else finTime = "오전 ";
+
+				startTime += start[0] + ":" + start[1];
+				finTime += fin[0] + ":" + fin[1];
+
+				$(".scheduleWrap h3").text(result[0][0].title);
+				$(".scheduleCont").text(result[0][0].contents);
+				$(".time").html(startDate[0] + " " + startTime + " ~ " + finDate[0] + " " + finTime);
+
+				$(".absent").text(result[1][0].absent);
+				$(".attend").text(result[1][0].attend);
+				$(".noVote").text(result[1][0].noVote);
+
+				$.getScript("../js/circleGraph.js");
+			}
+		});
+
+
+		//멤버검색
+		$("#searchBtn").on("click", function(){
+			$.ajax({
+				url:'/searchMember',
+				type:'GET',
+				data:{text: $("#key").val()},
+				success:function(result){
+					console.log(result);
+					$(".leftWrap > ul ul").html("");
+					for(var i=0; i<result.length; i++){
+						//멤버리스트
+						$(".leftWrap > ul").append('<li><strong>'+result[i].place_name+'</strong><ul></ul></li>');
+					}
+				}
+			});
+		});
+	});
+	</script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	</head>
 <body>
 <header>
-    <h1><img src="../image/logo.png" alt="Be Place"></h1>
-    <nav>
-        <ul>
-            <li>
-                <a href="/page/place.html" data-url="place">PLACE</a>
-            </li>
-            <li>
-                <a href="/page/members.html" data-url="members">MEMBERS</a>
-            </li>
-            <li>
-                <a href="/page/schedule.html" data-url="schedule">SCHEDULE</a>
-            </li>
-            <li>
-                <a href="/page/notice.html" data-url="notice">NOTICE</a>
-            </li>
-        </ul>
-    </nav>
+	<h1><img src="../image/logo.png" alt="Be Place"></h1>
+	<nav>
+		<ul>
+			<li>
+				<a href="/page/place.html" data-url="place">PLACE</a>
+			</li>
+			<li>
+				<a href="/page/members.html" data-url="members">MEMBERS</a>
+			</li>
+			<li>
+				<a href="/page/schedule.html" data-url="schedule">SCHEDULE</a>
+			</li>
+			<li>
+				<a href="/page/notice.html" data-url="notice">NOTICE</a>
+			</li>
+		</ul>
+		<a href="javascript:;">출첵</a>
+	</nav>
 </header>
 <section class="place">
-    <div class="leftWrap">
-        <p>현재인원 <span>2명</span></p>
-        <div class="searchWrap">
-            <input type="text" name="key" id="key" placeholder="이름을 검색하세요">
-            <input type="button" id="searchBtn" value="검색">
-        </div>
-        <ul>
-            <li>
-                <strong>Beacon1</strong>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <strong>Beacon2</strong>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <strong>Beacon3</strong>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <em>홍길동</em>
-                            <p>ux, ui designer</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="rightWrap">
-        <div class="cover">
-            <article class="counter css-max-wdith"> <!--윤호-->
-                <strong>방문자</strong>
-                <ul>
-                    <li>Month <span>153</span></li>
-                    <li>Today <span>2</span></li>
-                </ul>
+	<div class="leftWrap">
+		<p>현재인원 <span class="nowTotal"></span></p>
+		<div class="searchWrap">
+			<input type="text" name="key" id="key" placeholder="기수, 이름, 전공을 검색하세요">
+			<input type="button" id="searchBtn" value="검색">
+		</div>
+		<ul class="memberList"></ul>
+	</div>
+	<div class="rightWrap">
+		<div class="cover">
+			<article class="counter css-max-wdith"> <!--윤호-->
+				<strong>방문자</strong>
+				<ul>
+					<li>Month <span>153</span></li>
+					<li>Today <span>2</span></li>
+				</ul>
 
-                <p class="todaydate"></p>
-            </article>
-        </div>
-        <article class="mapWrap css-max-wdith"> <!--윤호-->
-            <h2>현재 라운지 현황</h2>
-            <div>
-                <ul>
-                    <li class="mapColor">
-                        <strong>전체인원</strong>
-                        <p>24</p>
-                    </li>
-                    <li>
-                        <strong>Beacon1</strong>
-                        <p>16<span>16/20</span></p>
-                    </li>
-                    <li>
-                        <strong>Beacon2</strong>
-                        <p>2<span>16/20</span></p>
-                    </li>
-                    <li>
-                        <strong>Beacon3</strong>
-                        <p>2<span>16/20</span></p>
-                    </li>
-                    <li>
-                        <strong>외출 중</strong>
-                        <p class="goout">4</p>
-                    </li>
-                </ul>
-                <a href="javascript:;" class="addBeacon">설정</a>
+				<p class="todaydate"></p>
+			</article>
+		</div>
+		<article class="mapWrap css-max-wdith"> <!--윤호-->
+			<h2>현재 라운지 현황</h2>
+			<div>
+				<ul>
+					<li class="mapColor">
+						<strong>전체인원</strong>
+						<p>10</p>
+					</li>
+				</ul>
+				<ul class="beaconList"></ul>
+				<ul class="out">
+					<li>
+						<strong>외출 중</strong>
+						<p class="goout">4</p>
+					</li>
+				</ul>
+				<a href="javascript:;" class="addBeacon">설정</a>
 
-                <div class="beaconWrap">
-                    <div class="bg"></div>
-                    <div class="form">
-                        <dl>
-                            <dt><label for="beaconNum">비콘넘버</label></dt>
-                            <dd><input type="text" name="beaconNum" id="beaconNum"></dd>
-                            <dt><label for="placeName">비콘이름</label></dt>
-                            <dd><input type="text" name="placeName" id="placeName"></dd>
-                        </dl>
-                        <input type="button" value="추가" id="beaconAddBtn">
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="scheduleWrap css-max-wdith"> <!--윤호-->
-            <h2>오늘의 일정</h2>
-            <div>
-                <h4></h4>
-                <p class="time">오전 9:00 ~ 오후 6:00</p>
-                <p class="scheduleCont"></p>
-                <div>
-                    <p>출석률 <span class="checkPerc"></span>%</p>
-                    <ul class="pieID legend">
-                        <li>
-                            <em>참석</em>
-                            <span>160</span>
-                        </li>
-                        <li>
-                            <em>불참</em>
-                            <span>201</span>
-                        </li>
-                        <li>
-                            <em>미투표</em>
-                            <span>10</span>
-                        </li>
-                    </ul>
-                    <div class="pieID pie"></div>
-                </div>
-            </div>
-        </article>
-    </div>
+				<div class="beaconWrap">
+					<div class="bg"></div>
+					<div class="form">
+						<dl>
+							<dt><label for="beaconNum">비콘넘버</label></dt>
+							<dd><input type="text" name="beaconNum" id="beaconNum"></dd>
+							<dt><label for="placeName">비콘이름</label></dt>
+							<dd><input type="text" name="placeName" id="placeName"></dd>
+						</dl>
+						<input type="button" value="추가" id="beaconAddBtn">
+					</div>
+				</div>
+			</div>
+		</article>
+		<article class="scheduleWrap css-max-wdith"> <!--윤호-->
+			<h2>오늘의 일정</h2>
+			<div>
+				<h3></h3>
+				<p class="time"></p>
+				<p class="scheduleCont"></p>
+				<div>
+					<p>출석률 <span class="checkPerc"></span>%</p>
+					<ul class="pieID legend">
+						<li>
+							<em>참석</em>
+							<span class="absent">33</span>
+						</li>
+						<li>
+							<em>불참</em>
+							<span class="attend">33</span>
+						</li>
+						<li>
+							<em>미투표</em>
+							<span class="noVote">33</span>
+						</li>
+					</ul>
+					<div class="pieID pie"></div>
+				</div>
+			</div>
+		</article>
+	</div>
+	<div class="memberInfo">
+		<div class="bg"></div>
+		<article>
+			<div>
+				<h4>회원정보</h4>
+				<strong>홍길동</strong>
+				<p>ICT개발 5기</p>
+			</div>
+			<span><img src="/image/user_big.png" alt="프로필이미지"></span>
+			<div class="perInfo">
+				<h5>개인정보</h5>
+				<ul>
+					<li><em>이름</em>홍길동</li>
+					<li><em>나이</em>22세</li>
+					<li><em>소속</em>sGenClub 5기</li>
+					<li><em>이메일</em>test@test.test</li>
+					<li><em>학교</em>서울대학교</li>
+					<li><em>연락처</em>000-000-0000</li>
+				</ul>
+			</div>
+			<a href="javascript:;" class="emailBtn">이메일보내기</a>
+		</article>
+	</div>
 </section>
 <footer><!-- include footer.html --></footer>
 </body>
