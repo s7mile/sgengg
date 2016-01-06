@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/sub.css">
 	<script type="text/javascript" src="../js/jquery.js"></script>
-	<script type="text/javascript">
+	<script type-"text/javascript">
 	$(function(){
 		$("footer").load("footer.html");
 		$(".leftWrap").css("height", $(".rightWrap").height());
@@ -66,36 +66,41 @@
 			type:'GET',
 			data:{},
 			success:function(result){
-				// console.log(result);
-				var startDate = result[0][0].start_time.split("T"), 
-					start = startDate[1].split(".")[0].split(":"),
-					finDate = result[0][0].fin_time.split("T"),
-					fin = finDate[1].split(".")[0].split(":"),
-					startTime,
-					finTime;
+				console.log(result);
+				if(result != "noResult"){
+					var startDate = result[0][0].start_time.split("T"), 
+						start = startDate[1].split(".")[0].split(":"),
+						finDate = result[0][0].fin_time.split("T"),
+						fin = finDate[1].split(".")[0].split(":"),
+						startTime,
+						finTime;
 
-				if(start[0] > 12){
-					startTime = "오후 ";
-					start[0] -= 12;
-				} else startTime = "오전 ";
+					if(start[0] > 12){
+						startTime = "오후 ";
+						start[0] -= 12;
+					} else startTime = "오전 ";
 
-				if(fin[0] > 12){
-					finTime = "오후 ";
-					fin[0] -= 12;
-				} else finTime = "오전 ";
+					if(fin[0] > 12){
+						finTime = "오후 ";
+						fin[0] -= 12;
+					} else finTime = "오전 ";
 
-				startTime += start[0] + ":" + start[1];
-				finTime += fin[0] + ":" + fin[1];
+					startTime += start[0] + ":" + start[1];
+					finTime += fin[0] + ":" + fin[1];
 
-				$(".scheduleWrap h3").text(result[0][0].title);
-				$(".scheduleCont").text(result[0][0].contents);
-				$(".time").html(startDate[0] + " " + startTime + " ~ " + finDate[0] + " " + finTime);
+					$(".scheduleWrap h3").text(result[0][0].title);
+					$(".scheduleCont").text(result[0][0].contents);
+					$(".time").html(startDate[0] + " " + startTime + " ~ " + finDate[0] + " " + finTime);
 
-				$(".absent").text(result[1][0].absent);
-				$(".attend").text(result[1][0].attend);
-				$(".noVote").text(result[1][0].noVote);
+					$(".absent").text(result[1][0].absent);
+					$(".attend").text(result[1][0].attend);
+					$(".noVote").text(result[1][0].noVote);
 
-				$.getScript("../js/circleGraph.js");
+					$.getScript("../js/circleGraph.js");
+				}else{
+					$(".scheduleWrap > div > div").hide();
+					$(".scheduleWrap h3").text("오늘의 일정이 없어요 :)");
+				}
 			}
 		});
 
