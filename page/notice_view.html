@@ -5,15 +5,54 @@
 	<title>공감 관리자모드</title>
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/sub.css">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
-	<script type="text/javascript" src="../js/noticeProc.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("footer").load("footer.html");
-		$("#startDate, #endDate, #deadline").datepicker({dateFormat: 'yy-mm-dd'});	
+
+		var nowNum;
+		if(getUrlVars(1) > 0) nowNum = getUrlVars(1);
+		else nowNum = 1;
+		//보기
+		$.ajax({	
+				url:'/selectNotice',
+				type:'GET',
+				data:{scheduleIndex: nowNum},
+				success:function(result){
+					console.log(result);
+
+					//날짜 자르기
+					var start = result[0][0].start_time.split("T"),
+						startDate = start[0],
+						startTime = start[1].split(".")[0],
+						fin = result[0][0].fin_time.split("T"),
+						finDate = fin[0];
+						finTime = fin[1].split(".")[0];
+
+					//출력
+					$("h3").text(result[0][0].title);
+					$(".signup_date").text(result[0][0].signup_date.split("T")[0]);
+					$(".cont .place").html("<em>장소</em>" + result[0][0].place);
+					$(".cont .target").html("<em>참석자</em>" + result[0][0].target);
+					$(".cont .time").html("<em>기간</em>" + startDate + " " + startTime + " ~ " + finDate + " " + finTime);
+					$(".cont pre").text(result[0][0].contents);
+
+					//투표
+					if(result[0][0].vote_on == 1){
+						$(".cont").append("<h4>투표</h4>");
+						$(".cont").append("<div></div>");
+						$(".cont > div").append("<strong class='voteTitle'></strong>");
+						$(".cont > div").append("<ul></ul>");
+
+						$(".voteTitle").text(result[0][0].vote_title);
+						for(var i=0; i<result[1].length; i++){
+							$(".cont > div ul").append('<li>'+result[1][i].name+'</li>');
+						}
+					}
+				}
+			});
 	});
 	</script>
 </head>
@@ -37,18 +76,36 @@
 			</ul>
 		</nav>
 	</header>
-	<section class="notice">
+	<section class="notice view">
 		<article>
 			<h2>공지사항</h2>
 			<div class="searchWrap">
 				<input type="text" name="key" id="key" placeholder="게시물을 검색하세요">
 				<input type="button" id="searchBtn" value="검색">
 			</div>
-			<div class="view">
-				<h3>제목</h3>
-				<p class="date">2015-01-22</p>
-				<p class="cont">내용</p>
+			<table cellpadding="0" cellspacing="0">
+				<thead>
+					<tr>
+						<th scope="col">제목</th>
+						<th scope="col">등록일</th>
+						<th scope="col">글쓴이</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><h3></h3></td>
+						<td class="signup_date"></td>
+						<td>관리자</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="cont">
+				<p class="place"></p>
+				<p class="target"></p>
+				<p class="time"></p>
+				<pre></pre>
 			</div>
+			<a href="/page/notice.html" class="writeBtn">목록으로</a>
 		</article>
 	</section>
 	<footer><!-- include footer.html --></footer>
