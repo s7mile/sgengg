@@ -107,6 +107,20 @@ article h3 {
 }
 
 /*윤호*/
+.check_button {
+	width: 150px;
+	background-color: #f47762;
+	text-align: center;
+	color: #fff;
+	padding: 0;
+
+}
+
+.check_button:hover {
+	background-color: #bf695e;
+	color: #414141;
+}
+
 .css-max-wdith {
 	max-width: 920px;
 	min-width: 850px;
