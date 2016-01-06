@@ -50,7 +50,6 @@ $(function(){
 
 			var chan_val = year + '.' + mon + '.' + day + " " + yoil + "요일";
 			$(".todaydate").text(chan_val);
-			$("p.today").text('TODAY ' + year + '.' + mon + '.' + day);
 		}
 	}
 	datePrint.init();
@@ -71,27 +70,6 @@ $(function(){
 	}
 	checkPerc.init();
 
-	var scrollEvent = {
-		init: function() {
-			this.func();
-		},
-		func: function() {
-			$(document).on("mousewheel.disableScroll DOMMouseScroll.disableScroll touchmove.disableScroll", function(e) {
-				e.preventDefault();
-				return;
-			});
-			$(document).on("keydown.disableScroll", function(e) {
-				var eventKeyArray = [32, 33, 34, 35, 36, 37, 38, 39, 40];
-				for (var i = 0; i < eventKeyArray.length; i++) {
-					if (e.keyCode === eventKeyArray [i]) {
-						e.preventDefault();
-						return;
-					}
-				}
-			});
-		}
-	}
-
 	//공지사항
 	var noticeBtn = {
 		init: function() {
@@ -101,43 +79,15 @@ $(function(){
 			//글쓰기 폼 보이기
 			$(".writeBtn").on("click", function(){
 				$(".writeWrap").show();
-
-				//스크롤 막기
-				scrollEvent.init();
 			});
 
 			//닫기
-			$(".writeWrap .bg, .close").on("click", function(){
+			$(".closeBtn, .writeWrap .bg, .close").on("click", function(){
 				$(".writeWrap").hide();
-				//스크롤 활성화
-				$(document).off(".disableScroll");
 			});
 		}
 	}
 	noticeBtn.init();
-
-	//멤버상세보기
-	var memberView = {
-		init: function() {
-			this.func();
-		},
-		func: function() {
-			$(".memberList a").on("click", function(){
-				$(".memberInfo").show();
-
-				//스크롤 막기
-				scrollEvent.init();
-			});
-
-			//닫기
-			$(".bg, .close").on("click", function(){
-				$(".memberInfo").hide();
-				//스크롤 활성화
-				$(document).off(".disableScroll");
-			});
-		}
-	}
-	memberView.init();
 
 	var voteOn = {
 		init: function() {
@@ -179,14 +129,14 @@ $(function(){
 		func: function() {
 			var tab = $(".leftWrap .tab");
 			$(tab).on("click", function(){
-				if($(this).next().is(":visible")){
-					$(this).next().hide();
-					$(this).removeClass("down");
-					$(this).addClass("up");
+				if($(tab).next().is(":visible")){
+					$(tab).next().hide();
+					$(tab).removeClass("down");
+					$(tab).addClass("up");
 				}else{
-					$(this).next().show();
-					$(this).removeClass("up");
-					$(this).addClass("down");
+					$(tab).next().show();
+					$(tab).removeClass("up");
+					$(tab).addClass("down");
 				}
 			});
 		}

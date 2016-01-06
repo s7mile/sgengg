@@ -13,7 +13,7 @@
 	<script type-"text/javascript">
 	$(function(){
 		$("footer").load("footer.html");
-		$("#startDate, #endDate, #deadDate").datepicker({dateFormat: 'yy-mm-dd'});	
+		$("#startDate, #endDate, #deadline").datepicker({dateFormat: 'yy-mm-dd'});	
 	});
 	</script>
 </head>
@@ -109,9 +109,9 @@
 						<button class="voteSelAdd">추가</button>
 					</dd>
 
-					<dt><label for="deadDate">마감시간</label></dt>
+					<dt><label for="deadline">마감시간</label></dt>
 					<dd>
-						<input type="text" name="deadDate" id="deadDate">
+						<input type="text" name="deadline" id="deadline">
 						<select name="deadHour" id="deadHour"></select>시
 						<select name="deadMinute" id="deadMinute"></select>분
 					</dd>
@@ -121,6 +121,7 @@
 					<input type="button" value="취소" class="close">
 				</div>
 			</div>
+			<button class="closeBtn">X</button>
 		</article>
 	</section>
 	<footer><!-- include footer.html --></footer>

@@ -8,80 +8,9 @@
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript" src="../js/proc.js"></script>
 	<script type-"text/javascript">
-	$(function(){
-		$("footer").load("footer.html");
-		$(".leftWrap").css("height", $(document).height());
-
-		var radix = 5;
-		//기수
-		var radixList = {
-			init: function() {
-				this.func();
-			},
-			func: function() {
-				$.ajax({
-					async: false,
-					url:'/searchRadix',
-					type:'GET',
-					data:{text: radix},
-					success:function(result){
-						var html;
-						console.log(result);
-						for(var i=0; i<result[0].length; i++){
-							if(result[0][i].image)
-								img = result[0][i].image;
-							else
-								img = '/image/user.png';
-							//멤버리스트
-
-							html = '<li>';
-							html += '<a href="javascript:;">';
-							html += '<span class="photo">';
-							html += '<img src="'+img+'" alt="">';
-							html += '</span>';
-							html += '<em>'+ result[0][i].name +'</em>';
-							html += '<p>'+ result[0][i].major +'</p>';
-							html += '</a>';
-							html += '</li>';
-							$(".memberList").append(html);
-						}
-
-						$(".ict").text(result[1][0].ict+"명");
-						$(".uxui").text(result[1][0].ux_ui+"명");
-						$(".total").text(parseInt(result[1][0].ict) + parseInt(result[1][0].ux_ui)+"명");
-					}
-				});
-			}
-		}
-
-		$(".radixSel a").on("click", function(){
-			radix = $(this).data("radix");
-			$(".memberList").html("");
-			$(".radixSel").hide();
-			$(".leftWrap .tab").text("sGen "+radix+"기");
-			radixList.init();
+		$(function(){
+			$("footer").load("footer.html");
 		});
-
-		// //멤버검색
-		// $("#searchBtn").on("click", function(){
-		// 	$.ajax({
-		// 		url:'/searchMember',
-		// 		type:'GET',
-		// 		data:{
-		// 			radix: ??,
-		// 			text: $("#key").val()
-		// 		},
-		// 		success:function(result){
-		// 			console.log(result);
-		// 			$(".leftWrap > ul ul").html("");
-		// 			for(var i=0; i<result.length; i++){
-		// 				//멤버리스트
-		// 				$(".leftWrap > ul").append('<li><strong>'+result[i].place_name+'</strong><ul></ul></li>');
-		// 			}
-		// 		}
-		// 	});
-		// });
-	});
 	</script>
 	<script type="text/javascript" src="../js/circleGraph.js"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
@@ -108,19 +37,12 @@
 	</header>
 	<section class="members">
 		<div class="leftWrap">
-			<a href="javascript:;" class="tab down">sGen 5기</a>
-			<ul class="radixSel">
-				<li><a href="javascript:;" data-radix="5">5기</a></li>
-				<li><a href="javascript:;" data-radix="4">4기</a></li>
-				<li><a href="javascript:;" data-radix="3">3기</a></li>
-				<li><a href="javascript:;" data-radix="2">2기</a></li>
-				<li><a href="javascript:;" data-radix="1">1기</a></li>
-			</ul>
+			<a href="javascript:;" class="tab down">Sgen 5기</a>
 			<div>
 				<ul class="count">
-					<li>UX UI<span class="uxui"></span></li>
-					<li>ICT 개발<span class="ict"></span></li>
-					<li>총원<span class="total"></span></li>
+					<li>UX UI<span>24명</span></li>
+					<li>ICT 개발<span>24명</span></li>
+					<li>총원<span>48명</span></li>
 				</ul>
 				<div class="searchWrap member">
 					<strong>멤버</strong>
@@ -128,7 +50,36 @@
 					<input type="button" id="searchBtn" value="검색">
 					<a href="javascript:;" class="memberAddBtn">추가</a>
 				</div>
-				<ul class="memberList"></ul>
+				<ul>
+					<li>
+						<ul>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<em>홍길동</em>
+									<p>ux, ui designer</p>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<div class="rightWrap">
